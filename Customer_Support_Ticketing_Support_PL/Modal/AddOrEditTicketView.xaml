@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:cv="clr-namespace:Customer_Support_Ticketing_System_PL.Converter"
         xmlns:converter="clr-namespace:Customer_Support_Ticketing_System_PL.Converter"
+        xmlns:event="clr-namespace:Customer_Support_Ticketing_System_PL.Events"
         xmlns:local="clr-namespace:Customer_Support_Ticketing_System_PL.Modal" 
         d:DataContext="{d:DesignInstance Type=local:AddOrEditTicketViewModel}"
         mc:Ignorable="d"
-        Title="AddOrEditTicketView" Height="450" Width="800">
+        Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" BorderBrush="#709287" BorderThickness="2"
+        event:EventManager.EnableCloseModalEvents="True">
     
     <Window.Resources>
         <ResourceDictionary>
@@ -72,9 +73,9 @@
         <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" Margin="10" Visibility="{Binding IsAddigCustomer, Converter={StaticResource BoolConverter}}">
             <TextBlock Text="New Customer Name" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="CustomerName" Style="{StaticResource TextBoxStyle}" Text="{Binding CurrentCustomer.Name}" Height="20" Width="300" Margin="5"/>
-                <Button x:Name="FinishAddCustomer" Style="{StaticResource FinishButtonStyle}" Command="{Binding FinishAddCustomer}" Margin="0,0,5,0"/>
-                <Button x:Name="CancelAddCustomer" Style="{StaticResource CancelButtonStyle}" Command="{Binding CancelAddCustomer}"/>
+                <TextBox x:Name="CustomerName" Style="{StaticResource TextBoxStyle}" Text="{Binding CustomerName}" Height="20" Width="300" Margin="5" Visibility="{Binding IsAddigCustomer, Mode=TwoWay, Converter={StaticResource BoolConverter}}"/>
+                <Button x:Name="FinishAddCustomer" Style="{StaticResource FinishButtonStyle}" Command="{Binding FinishAddCustomer}" Margin="0,0,5,0" Visibility="{Binding IsAddigCustomer, Mode=TwoWay, Converter={StaticResource BoolConverter}}"/>
+                <Button x:Name="CancelAddCustomer" Style="{StaticResource CancelButtonStyle}" Command="{Binding CancelAddCustomer}" Visibility="{Binding IsAddigCustomer, Mode=TwoWay, Converter={StaticResource BoolConverter}}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

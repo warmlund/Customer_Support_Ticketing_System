@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Customer_Support_Ticketing_System_DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace Customer_Support_Ticketing_System_BLL
 {
-    internal interface ICustomerSupportBLL
+    public interface ICustomerSupportBLL
     {
-        void LoadTicketsFromData();
-        void LoadCustomersFromData();
-        void SaveTicketsToData();
-        void SaveCustomersToData();
-        void AddNewTicket();
-        void AddNewCustomer();
+        List<Ticket> LoadTicketsFromData();
+        List<Customer> LoadCustomersFromData();
+        void SaveTicketsToData(List<Ticket> tickets);
+        void SaveCustomersToData(List<Customer> customers);
+        void AddNewTicket(Ticket ticket);
+        void AddNewCustomer(Customer customer);
         void RemoveTicket(int ticketId);
         void EditTicket(int ticketId);
-        void EditCustomer(int customerId);
+        void UpdateCustomer(int customerId);
         void RemoveCustomer(int customerId);
     }
 }

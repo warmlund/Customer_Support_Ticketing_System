@@ -12,6 +12,7 @@ namespace Customer_Support_Ticketing_System_PL.Modal
         private bool _isediting;
         private bool _isAddingCustomer;
         private string _title;
+        private string _customerName;
         private CancellationTokenSource _tokenSource;
         private Ticket _currentTicket;
         private Customer _customer;
@@ -27,11 +28,12 @@ namespace Customer_Support_Ticketing_System_PL.Modal
         public List<TicketPriority> TicketPriorities { get { return _priority; } set { if (_priority != value) { _priority = value; OnPropertyChanged(nameof(TicketPriorities)); AddTicket.RaiseCanExecuteChanged(); } } }
         public List<TicketStatus> TicketStatuses { get { return _status; } set { if (_status != value) { _status = value; OnPropertyChanged(nameof(TicketStatuses)); AddTicket.RaiseCanExecuteChanged(); } } }
         public List<Customer> Customers { get { return _customers; } set { if (_customers != value) { _customers = value; OnPropertyChanged(nameof(Customers)); AddTicket.RaiseCanExecuteChanged(); } } }
-        public Customer CurrentCustomer { get { return _customer; } set { if (_customer != value) { _customer = value; OnPropertyChanged(nameof(CurrentCustomer)); FinishAddCustomer.RaiseCanExecuteChanged(); } } }
+        public Customer CurrentCustomer { get { return _customer; } set { if (_customer != value) { _customer = value; OnPropertyChanged(nameof(CurrentCustomer));} } }
+        public string CustomerName{get { return _customerName; }set { if (_customerName != value) { _customerName = value; OnPropertyChanged(nameof(CustomerName)); FinishAddCustomer.RaiseCanExecuteChanged(); } } }
         public string Title { get { return _title; } set { if (_title != value) { _title = value; OnPropertyChanged(nameof(Title)); AddTicket.RaiseCanExecuteChanged(); } } }
         public Action Close { get; set; }
         public Command AddTicket { get; private set; }
-        public Command CancelTicket { get; }
+        public Command CancelTicket { get; private set; }
         public AsyncCommand AddCustomer { get; private set; }
         public Command FinishAddCustomer { get; private set; }
         public Command CancelAddCustomer { get; private set; }
@@ -56,29 +58,39 @@ namespace Customer_Support_Ticketing_System_PL.Modal
             AddCustomer = new AsyncCommand(AddNewCustomerAsync, CanAddNewCustomer);
             FinishAddCustomer = new Command(FinishAddNewCustomer, CanFinishAddNewCustomer);
             CancelAddCustomer = new Command(CancelAddNewCustomer, CanCancelAddNewCustomer);
-
             TicketPriorities = TicketPriority.GetValues(typeof(TicketPriority)).Cast<TicketPriority>().ToList();
             TicketStatuses = TicketStatus.GetValues(typeof(TicketStatus)).Cast<TicketStatus>().ToList();
             IsAddigCustomer = false;
+            CurrentCustomer=new Customer();
+            CustomerName=string.Empty;
         }
 
         private bool CanCancelAddNewCustomer() => true;
         private void CancelAddNewCustomer()
         {
             IsAddigCustomer = false;
-            CurrentCustomer = null;
+            CurrentCustomer.Name= string.Empty;
+            CurrentCustomer.CustomerId = 0;
+            CustomerName = string.Empty;
         }
 
         private bool CanFinishAddNewCustomer()
         {
-            if (CurrentCustomer.Name != string.Empty)
-                return true;
+            if(IsAddigCustomer == true)
+            {
+                if (CustomerName!=string.Empty)
+                    return true;
+                else
+                    return false;
+            }
+           
             return false;
         }
 
         private void FinishAddNewCustomer()
         {
             IsAddigCustomer = false;
+            CurrentCustomer.Name=CustomerName;
             CurrentTicket.Customer = CurrentCustomer;
         }
 
@@ -88,17 +100,18 @@ namespace Customer_Support_Ticketing_System_PL.Modal
         {
             IsAddigCustomer = true;
             _tokenSource = new CancellationTokenSource();
+            FinishAddCustomer.RaiseCanExecuteChanged();
             while (IsAddigCustomer)
             {
                 if (_tokenSource.IsCancellationRequested)
                 {
-                    IsEditing = false;
+                    IsAddigCustomer = false;
                     break;
                 }
 
-                CurrentCustomer = new Customer();
+                await Task.Delay(100, _tokenSource.Token);
             }
-            await Task.Delay(100, _tokenSource.Token);
+          
         }
 
         private bool CanCancelAddOrUpdateTicket() => true;
