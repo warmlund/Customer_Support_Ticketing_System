@@ -15,7 +15,6 @@
                 <ResourceDictionary Source="Styles/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Defining value converters for visibility management-->
-            <local:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
     

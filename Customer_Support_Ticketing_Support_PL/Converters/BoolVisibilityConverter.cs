@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace Customer_Support_Ticketing_System
+namespace Customer_Support_Ticketing_System_PL.Converter
 {
     internal class BoolVisibilityConverter : IValueConverter
     {
