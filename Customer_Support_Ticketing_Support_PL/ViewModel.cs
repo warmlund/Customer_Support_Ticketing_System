@@ -1,14 +1,9 @@
-﻿using Customer_Support_Ticketing_System_DTO;
+﻿using Customer_Support_Ticketing_System_BLL;
+using Customer_Support_Ticketing_System_DTO;
 using Customer_Support_Ticketing_System_PL.Commands;
 using Customer_Support_Ticketing_System_PL.HelperClasses;
 using Customer_Support_Ticketing_System_PL.Modal;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Customer_Support_Ticketing_System_BLL;
 using System.Windows;
 
 namespace Customer_Support_Ticketing_System_PL
@@ -64,20 +59,20 @@ namespace Customer_Support_Ticketing_System_PL
             }
         }
 
-        private bool CanDeleteTicket()=> true;
+        private bool CanDeleteTicket() => true;
 
         private void DeleteSelectedTicket()
         {
             throw new NotImplementedException();
         }
 
-        private bool CanAddNewTicket()=> true;
+        private bool CanAddNewTicket() => true;
 
         private void AddNewTicket()
         {
-            var addTicketViewModel = new AddOrEditTicketViewModel(_customerSupportBLL,false);
+            var addTicketViewModel = new AddOrEditTicketViewModel(_customerSupportBLL, false);
 
-           var addTicketView = new AddOrEditTicketView { DataContext = addTicketViewModel };
+            var addTicketView = new AddOrEditTicketView { DataContext = addTicketViewModel };
 
             var result = addTicketView.ShowDialog();
 
