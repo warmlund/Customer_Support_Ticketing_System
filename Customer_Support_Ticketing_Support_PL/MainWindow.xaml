@@ -36,7 +36,7 @@
             <TextBlock Text="Company" FontSize="24" FontWeight="demiBold" VerticalAlignment="Center" Foreground="{StaticResource TextColor}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" Margin="20">
-            <Button x:Name="Ticket" Content="Add New Ticket" Style="{StaticResource MenuButtonStyle}" Command="{Binding AddNewTicket}"/>
+            <Button x:Name="Ticket" Content="Add New Ticket" Style="{StaticResource MenuButtonStyle}" Command="{Binding AddTicket}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
             <TextBox x:Name="SearchBar" VerticalAlignment="Center" Style="{StaticResource TextBoxStyle}"/>
@@ -46,7 +46,8 @@
                   Style="{StaticResource DatagridStyle}" 
                   RowStyle="{StaticResource DatagridRowStyle}" 
                   CellStyle="{StaticResource DatagridCellStyle}" 
-                  ColumnHeaderStyle="{StaticResource DatagridHeaderStyle}">
+                  ColumnHeaderStyle="{StaticResource DatagridHeaderStyle}"
+                  SelectedItem="{Binding CurrentSelectedTicket}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ticket Id" Binding="{Binding TicketId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" />
                 <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
@@ -59,8 +60,10 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button x:Name="Delete" Style="{StaticResource DeleteButtonStyle}" Command="{Binding}" Margin="2"/>
-                                <Button x:Name="Edit" Style="{StaticResource EditButtonStyle}" Command="{Binding}" Margin="2"/>
+                                <Button x:Name="Delete" Style="{StaticResource DeleteButtonStyle}" Command="{Binding DataContext.DeleteTicket, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                        CommandParameter="{Binding}" Margin="2"/>
+                                <Button x:Name="Edit" Style="{StaticResource EditButtonStyle}" Command="{Binding DataContext.EditTicket, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                        CommandParameter="{Binding}" Margin="2"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Customer_Support_Ticketing_System_PL.Modal;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Customer_Support_Ticketing_System_PL.Events
@@ -24,7 +25,14 @@ namespace Customer_Support_Ticketing_System_PL.Events
             {
                 window.DataContextChanged += (s, e) =>
                 {
-                    
+                    if (window.DataContext is AddOrEditTicketViewModel vm)
+                    {
+                        vm.Close = () =>
+                        {
+                            window.DialogResult = vm.DialogResult;
+                            window.Close();
+                        };
+                    }
                 };
             }
         }

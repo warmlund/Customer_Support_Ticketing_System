@@ -13,10 +13,4 @@
     <ProjectReference Include="..\Customer_Support_Ticketing_System_DTO\Customer_Support_Ticketing_System_DTO.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="UtilitiesLib">
-      <HintPath>..\..\..\..\..\OneDrive - Bjerking AB\Dokument\Plugg\malmo_university\c_sharp_net_for_non_beginners\UtilitiesLib\bin\Debug\net8.0\UtilitiesLib.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
