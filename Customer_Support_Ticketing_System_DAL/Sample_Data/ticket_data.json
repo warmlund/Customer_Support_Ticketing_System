@@ -1,0 +1,63 @@
+[
+  {
+    "TicketID": 101,
+    "Customer": {
+      "CustomerID": 1,
+      "Name": "John Doe"
+    },
+    "Title": "Issue with product delivery",
+    "Description": "Customer reported that the product was not delivered on the expected date.",
+    "Date": "2024-10-27T10:15:30",
+    "Status": "Open",
+    "Priority": "High"
+  },
+  {
+    "TicketID": 102,
+    "Customer": {
+      "CustomerID": 2,
+      "Name": "Jane Smith"
+    },
+    "Title": "Login issue",
+    "Description": "Customer cannot log into their account and is receiving an error message.",
+    "Date": "2024-10-26T09:00:00",
+    "Status": "InProgress",
+    "Priority": "Medium"
+  },
+  {
+    "TicketID": 103,
+    "Customer": {
+      "CustomerID": 3,
+      "Name": "Bob Johnson"
+    },
+    "Title": "Billing discrepancy",
+    "Description": "Customer noticed an overcharge in the last billing cycle.",
+    "Date": "2024-10-25T14:45:20",
+    "Status": "Open",
+    "Priority": "High"
+  },
+  {
+    "TicketID": 104,
+    "Customer": {
+      "CustomerID": 4,
+      "Name": "Alice Brown"
+    },
+    "Title": "Feature request",
+    "Description": "Customer suggested adding a dark mode to the application.",
+    "Date": "2024-10-24T08:30:00",
+    "Status": "Closed",
+    "Priority": "Low"
+  },
+  {
+    "TicketID": 105,
+    "Customer": {
+      "CustomerID": 5,
+      "Name": "Charlie Davis"
+    },
+    "Title": "Application crash on startup",
+    "Description": "Customer reported that the app crashes immediately upon startup on their device.",
+    "Date": "2024-10-23T16:00:00",
+    "Status": "InProgress",
+    "Priority": "High"
+  }
+]
+
