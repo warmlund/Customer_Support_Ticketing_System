@@ -3,5 +3,7 @@
     public class Customer
     {
 
+        public int CustomerId { get; set; }  // Unique identifier for the customer
+        public string Name { get; set; } // Customer's first name
     }
 }
