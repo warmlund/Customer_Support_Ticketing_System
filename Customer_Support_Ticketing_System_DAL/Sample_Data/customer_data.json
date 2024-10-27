@@ -1,0 +1,22 @@
+[
+  {
+    "CustomerId": 1,
+    "CustomerName": "John Doe"
+  },
+  {
+    "CustomerId": 2,
+    "CustomerName": "Jane Smith"
+  },
+  {
+    "CustomerId": 3,
+    "CustomerName": "Bob Johnson"
+  },
+  {
+    "CustomerId": 4,
+    "CustomerName": "Alice Brown"
+  },
+  {
+    "CustomerId": 5,
+    "CustomerName": "Charlie Davis"
+  }
+]
