@@ -9,15 +9,15 @@ namespace Customer_Support_Ticketing_System_BLL
 {
     public interface ICustomerSupportBLL
     {
-        void LoadTicketsFromData();
-        void LoadCustomersFromData();
-        void SaveTicketsToData();
-        void SaveCustomersToData();
+        bool LoadTicketsFromData();
+        bool LoadCustomersFromData();
+        bool SaveTicketsToData();
+        bool SaveCustomersToData();
         void AddNewTicket(Ticket ticket);
         void AddNewCustomer(Customer customer);
-        void RemoveTicket(int ticketId);
+        void RemoveTicket(Ticket ticket);
         void EditTicket(Ticket ticket,int ticketId);
         void UpdateCustomer(Customer customer,int customerId);
-        void RemoveCustomer(int customerId);
+        void RemoveCustomer(Customer customer);
     }
 }

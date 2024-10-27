@@ -29,10 +29,17 @@ namespace Customer_Support_Ticketing_System_PL
         {
             _customerSupportBLL = customerSupportBLL;
             TicketList = new ObservableCollection<Ticket>();
-
             AddTicket = new Command(AddNewTicket, CanAddNewTicket);
             DeleteTicket = new Command(DeleteSelectedTicket, CanDeleteTicket);
             EditTicket = new Command(EditSelectedTicket, CanEditTicket);
+        }
+
+        public void UpdateCollection()
+        {
+            foreach (var ticket in _customerSupportBLL.TStorage.GetAllTickets())
+            {
+                TicketList.Add(ticket);
+            }
         }
 
         private bool CanEditTicket() => true;
@@ -49,12 +56,14 @@ namespace Customer_Support_Ticketing_System_PL
             {
                 try
                 {
-                    _customerSupportBLL.AddNewTicket(addTicketViewModel.CurrentTicket);
+                    _customerSupportBLL.EditTicket(addTicketViewModel.CurrentTicket, CurrentSelectedTicket.TicketId);
+                    if (addTicketViewModel.CurrentCustomer.Name != string.Empty)
+                        _customerSupportBLL.AddNewCustomer(addTicketViewModel.CurrentCustomer);
                 }
 
                 catch
                 {
-                    MessageBox.Show("Failed to add ticket");
+                    MessageBox.Show("Failed to edit ticket");
                 }
             }
         }
@@ -63,7 +72,16 @@ namespace Customer_Support_Ticketing_System_PL
 
         private void DeleteSelectedTicket()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _customerSupportBLL.RemoveTicket(CurrentSelectedTicket);
+            }
+
+            catch
+            {
+                MessageBox.Show("Failed to remove ticket");
+            }
+
         }
 
         private bool CanAddNewTicket() => true;
@@ -81,6 +99,8 @@ namespace Customer_Support_Ticketing_System_PL
                 try
                 {
                     _customerSupportBLL.AddNewTicket(addTicketViewModel.CurrentTicket);
+                    if (addTicketViewModel.CurrentCustomer.Name != string.Empty)
+                        _customerSupportBLL.AddNewCustomer(addTicketViewModel.CurrentCustomer);
                 }
 
                 catch
@@ -88,6 +108,29 @@ namespace Customer_Support_Ticketing_System_PL
                     MessageBox.Show("Failed to add ticket");
                 }
             }
+        }
+
+        public void SaveDataOnClosing()
+        {
+            bool saveTickets = _customerSupportBLL.SaveTicketsToData();
+            bool saveCustomers = _customerSupportBLL.SaveCustomersToData();
+
+            if (!saveTickets)
+                MessageBox.Show("Failed to save ticket data");
+            if (!saveCustomers)
+                MessageBox.Show("Failed to save customer data");
+        }
+
+        public void LoadDataOnOpening()
+        {
+            bool loadTickets = _customerSupportBLL.LoadTicketsFromData();
+            bool loadCustomers = _customerSupportBLL.LoadCustomersFromData();
+
+            if (!loadTickets)
+                MessageBox.Show("Failed to load ticket data");
+
+            if (!loadCustomers)
+                MessageBox.Show("Failed to load customer data");
         }
     }
 }

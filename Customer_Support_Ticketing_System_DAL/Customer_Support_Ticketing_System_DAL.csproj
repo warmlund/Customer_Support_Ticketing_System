@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Sample_Data\customer_data.json" />
+    <None Remove="Sample_Data\ticket_data.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Sample_Data\customer_data.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sample_Data\ticket_data.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Customer_Support_Ticketing_System_DTO\Customer_Support_Ticketing_System_DTO.csproj" />
   </ItemGroup>
 

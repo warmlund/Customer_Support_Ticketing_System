@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Customer_Support_Ticketing_System" 
+        xmlns:local="clr-namespace:Customer_Support_Ticketing_System"
+        xmlns:event="clr-namespace:Customer_Support_Ticketing_System_PL.Events"
         xmlns:customer_support_ticketing_system_pl="clr-namespace:Customer_Support_Ticketing_System_PL" d:DataContext="{d:DesignInstance Type=customer_support_ticketing_system_pl:ViewModel}"
         mc:Ignorable="d"
-        Height="768" Width="1024" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow">
+        Height="768" Width="1024" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" event:EventManager.EnableOpenCloseWindowEvents="True">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -50,8 +51,8 @@
                   SelectedItem="{Binding CurrentSelectedTicket}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ticket Id" Binding="{Binding TicketId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" />
-                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-                <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Customer" Binding="{Binding Customer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
                 <DataGridTextColumn Header="Description" Binding="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
                 <DataGridTextColumn Header="Date Created" Binding="{Binding CreatedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat='{}{0:MM/dd/yyyy}'}" Width="*" />
                 <DataGridTextColumn Header="Priority" Binding="{Binding Priority, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />

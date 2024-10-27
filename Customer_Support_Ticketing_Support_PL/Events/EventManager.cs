@@ -38,6 +38,44 @@ namespace Customer_Support_Ticketing_System_PL.Events
         }
         #endregion
 
+        #region event for opening and closing main windows and loading and saving data
+        public static bool GetEnableOpenCloseWindowEvents(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(EnableOpenCloseWindowEventsProperty);
+        }
+
+        public static void SetEnableOpenCloseWindowEvents(DependencyObject obj, bool value)
+        {
+            obj.SetValue(EnableOpenCloseWindowEventsProperty, value);
+        }
+
+        public static readonly DependencyProperty EnableOpenCloseWindowEventsProperty = DependencyProperty.RegisterAttached("EnableOpenCloseWindowEvents", typeof(bool), typeof(EventManager), new PropertyMetadata(false, EnableOpenCloseWindowChanged));
+
+        private static void EnableOpenCloseWindowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is Window window)
+            {
+                window.Closing += (s, e) =>
+                {
+                    if(window.DataContext is ViewModel viewModel)
+                    {
+                        viewModel.SaveDataOnClosing();
+                    }
+                };
+
+                window.Loaded += (s, e) =>
+                {
+                    if (window.DataContext is ViewModel viewModel)
+                    {
+                        viewModel.LoadDataOnOpening();
+                        viewModel.UpdateCollection();
+                    }
+                        
+                };
+            }
+        }
+        #endregion
+
         #region event for getting selected items from datagrid
         public static bool GetSelectedItemsDatagridEvents(DependencyObject obj)
         {

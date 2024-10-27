@@ -1,10 +1,9 @@
 ﻿using Customer_Support_Ticketing_System_DTO;
 using Newtonsoft.Json;
-using System.IO;
 
 namespace Customer_Support_Ticketing_System_DAL
 {
-    public class CustomerSupportDAL :ICustomerSupportDAL
+    public class CustomerSupportDAL : ICustomerSupportDAL
     {
         private const string ticketStoragePath = "Sample_Data/ticket_data.json";
         private const string customerStoragePath = "Sample_Data/customer_data.json";
@@ -24,7 +23,7 @@ namespace Customer_Support_Ticketing_System_DAL
             }
         }
 
-        public bool SaveCustomers(List<Customer> customers) 
+        public bool SaveCustomers(List<Customer> customers)
         {
             try
             {

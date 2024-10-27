@@ -1,4 +1,6 @@
-﻿namespace Customer_Support_Ticketing_System_BLL
+﻿using Customer_Support_Ticketing_System_DTO;
+
+namespace Customer_Support_Ticketing_System_BLL
 {
     public abstract class ListManager<T> : IListManager<T>
     {
@@ -12,14 +14,15 @@
 
         public void Add(T item)
         {
-
             _list.Add(item);
         }
 
-        public void RemoveAt(int index)
+        public void Remove(T item)
         {
-            if (index >= 0 && index < _list.Count)
-                _list.RemoveAt(index);
+            if (_list.Contains(item))
+            {
+                _list.Remove(item);
+            }
         }
 
         public void ReplaceAt(T item, int index)

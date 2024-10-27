@@ -15,7 +15,7 @@
         /// Removes and items at a certain index
         /// </summary>
         /// <param name="index"></param>
-        void RemoveAt(int index);
+        void Remove(T item);
 
         /// <summary>
         /// Replaces an item at a certain index

@@ -2,8 +2,8 @@
   {
     "TicketID": 101,
     "Customer": {
-      "CustomerID": 1,
-      "Name": "John Doe"
+      "CustomerId": 1,
+      "Customer": "John Doe"
     },
     "Title": "Issue with product delivery",
     "Description": "Customer reported that the product was not delivered on the expected date.",
@@ -14,8 +14,8 @@
   {
     "TicketID": 102,
     "Customer": {
-      "CustomerID": 2,
-      "Name": "Jane Smith"
+      "CustomerId": 2,
+      "Customer": "Jane Smith"
     },
     "Title": "Login issue",
     "Description": "Customer cannot log into their account and is receiving an error message.",
@@ -26,8 +26,8 @@
   {
     "TicketID": 103,
     "Customer": {
-      "CustomerID": 3,
-      "Name": "Bob Johnson"
+      "CustomerId": 3,
+      "Customer": "Bob Johnson"
     },
     "Title": "Billing discrepancy",
     "Description": "Customer noticed an overcharge in the last billing cycle.",
@@ -38,8 +38,8 @@
   {
     "TicketID": 104,
     "Customer": {
-      "CustomerID": 4,
-      "Name": "Alice Brown"
+      "CustomerId": 4,
+      "Customer": "Alice Brown"
     },
     "Title": "Feature request",
     "Description": "Customer suggested adding a dark mode to the application.",
@@ -50,8 +50,8 @@
   {
     "TicketID": 105,
     "Customer": {
-      "CustomerID": 5,
-      "Name": "Charlie Davis"
+      "CustomerId": 5,
+      "Customer": "Charlie Davis"
     },
     "Title": "Application crash on startup",
     "Description": "Customer reported that the app crashes immediately upon startup on their device.",

@@ -52,7 +52,7 @@
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="10">
             <TextBlock Text="Customer Name" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                <ComboBox x:Name="Customer"  ItemsSource="{Binding Customers}" Height="20" Width="300" Margin="5"/>
+                <ComboBox x:Name="Customer"  ItemsSource="{Binding Customers}" DisplayMemberPath="Name" Height="20" Width="300" Margin="5"/>
                 <Button x:Name="AddCustomer" Style="{StaticResource AddButtonStyle}" Command="{Binding AddCustomer}"/>
             </StackPanel>
         </StackPanel>

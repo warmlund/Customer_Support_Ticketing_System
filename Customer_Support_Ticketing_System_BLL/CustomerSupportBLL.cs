@@ -19,23 +19,40 @@ namespace Customer_Support_Ticketing_System_BLL
             _customerStorage = new CustomerStorage();
             _customerSupportDAL = new CustomerSupportDAL();
         }
-        public void LoadTicketsFromData()
+        public bool LoadTicketsFromData()
         {
-            foreach (Ticket ticket in _customerSupportDAL.LoadTickets())
-                _ticketStorage.Add(ticket);
+            var ticketList = _customerSupportDAL.LoadTickets();
+
+            if (ticketList != null)
+            {
+                foreach (Ticket ticket in ticketList)
+                    _ticketStorage.Add(ticket);
+
+                return true;
+            }
+
+            return false;
         }
-        public void LoadCustomersFromData()
+        public bool LoadCustomersFromData()
         {
-            foreach (Customer customer in _customerSupportDAL.LoadCustomers())
-                _customerStorage.Add(customer);
+            var customerList = _customerSupportDAL.LoadCustomers();
+
+            if (customerList != null)
+            {
+                foreach (Customer customer in customerList)
+                    _customerStorage.Add(customer);
+                return true;
+            }
+
+            return false;
         }
-        public void SaveTicketsToData()
+        public bool SaveTicketsToData()
         {
-            _customerSupportDAL.SaveTickets(_ticketStorage.GetAllTickets());
+           return _customerSupportDAL.SaveTickets(_ticketStorage.GetAllTickets());
         }
-        public void SaveCustomersToData()
+        public bool SaveCustomersToData()
         {
-            _customerSupportDAL.SaveCustomers(_customerStorage.GetAllCustomers());
+            return _customerSupportDAL.SaveCustomers(_customerStorage.GetAllCustomers());
         }
         public void AddNewTicket(Ticket ticket)
         {
@@ -45,9 +62,9 @@ namespace Customer_Support_Ticketing_System_BLL
         {
             CStorage.Add(customer);
         }
-        public void RemoveTicket(int ticketId)
+        public void RemoveTicket(Ticket ticket)
         {
-            TStorage.RemoveAt(ticketId);
+            TStorage.Remove(ticket);
         }
         public void EditTicket(Ticket ticket, int ticketId)
         {
@@ -57,9 +74,9 @@ namespace Customer_Support_Ticketing_System_BLL
         {
             CStorage.ReplaceAt(newCustomer, customerId);
         }
-        public void RemoveCustomer(int customerId)
+        public void RemoveCustomer(Customer customer)
         {
-            CStorage.RemoveAt(customerId);
+            CStorage.Remove(customer);
         }
 
         public bool DoesCustomerExist(string customerName)
