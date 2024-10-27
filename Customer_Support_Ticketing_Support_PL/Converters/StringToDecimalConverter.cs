@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Data;
 using UtilitiesLib;
 
-namespace Customer_Support_Ticketing_System_PL.Converters
+namespace Customer_Support_Ticketing_System_PL.Converter
 {
     internal class StringToDecimalConverter : IValueConverter
     {

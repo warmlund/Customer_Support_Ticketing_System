@@ -32,32 +32,6 @@ namespace Customer_Support_Ticketing_System_PL
         {
             _customerSupportBLL = customerSupportBLL;
             TicketList = new ObservableCollection<Ticket>();
-            
-            var ticket=new Ticket
-            {
-                CreatedDate = DateTime.Now,
-                CustomerId = 1,
-                TicketId = 1,
-                Title = "Test",
-                Description = "Test",
-                Status = TicketStatus.Open,
-                Priority = TicketPriority.Low,
-            };
-            _ticketList.Add(ticket);
-
-            var ticket2 = new Ticket
-            {
-                CreatedDate = DateTime.Now,
-                CustomerId = 1,
-                TicketId = 1,
-                Title = "Test",
-                Description = "Test",
-                Status = TicketStatus.Open,
-                Priority = TicketPriority.Low,
-            };
-            _ticketList.Add(ticket2);
-
-            OnPropertyChanged(nameof(TicketList));
         }
     }
 }

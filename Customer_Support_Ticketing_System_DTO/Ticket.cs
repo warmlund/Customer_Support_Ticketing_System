@@ -7,22 +7,22 @@ namespace Customer_Support_Ticketing_System_DTO
         [JsonProperty("TicketID")]
         public int TicketId { get; set; }
 
-        [JsonProperty("CustomerID")]
-        public int CustomerId { get; set; }             // Foreign key reference to Customer
+        [JsonProperty("Customer")]
+        public Customer Customer { get; set; }        
 
         [JsonProperty("Title")]
-        public string Title { get; set; }               // Short title describing the issue
+        public string Title { get; set; }             
 
         [JsonProperty("Description")]
-        public string Description { get; set; }         // Detailed description of the issue
+        public string Description { get; set; }      
 
         [JsonProperty("Date")]
-        public DateTime CreatedDate { get; set; }       // Date when the ticket was created
+        public DateTime CreatedDate { get; set; }     
 
         [JsonProperty("Status")]
-        public TicketStatus Status { get; set; }        // Enum for the ticket's status (e.g., Open, In Progress, Closed)
+        public TicketStatus Status { get; set; }    
 
         [JsonProperty("Priority")]
-        public TicketPriority Priority { get; set; }    // Enum for the priority (e.g., Low, Medium, High)
+        public TicketPriority Priority { get; set; }
     }
 }
