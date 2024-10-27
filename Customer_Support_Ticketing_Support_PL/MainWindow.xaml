@@ -3,10 +3,71 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Customer_Support_Ticketing_System"
+        xmlns:local="clr-namespace:Customer_Support_Ticketing_System" 
+        xmlns:customer_support_ticketing_system_pl="clr-namespace:Customer_Support_Ticketing_System_PL" d:DataContext="{d:DesignInstance Type=customer_support_ticketing_system_pl:ViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024">
+        Height="768" Width="1024" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Getting styles from the resource dictionary-->
+                <ResourceDictionary Source="Styles/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Defining value converters for visibility management-->
+            <local:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="100"/>
+            <RowDefinition MaxHeight="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Rectangle Grid.Row="0" Fill="{StaticResource SecondaryColor}"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="10" HorizontalAlignment="Stretch">
+            <Border x:Name="CompanyLogo" Grid.Column="0" Grid.Row="0" Background="{StaticResource MainColor}" BorderThickness="0" CornerRadius="10" Width="50" Height="50" Margin="10" HorizontalAlignment="Left">
+                <TextBlock Text="C" FontSize="32" FontWeight="demiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            </Border>
+            <TextBlock Text="Company" FontSize="24" FontWeight="demiBold" VerticalAlignment="Center" Foreground="{StaticResource TextColor}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" Margin="20">
+            <Button x:Name="Ticket" Content="Add New Ticket" Style="{StaticResource MenuButtonStyle}" Command="{Binding AddNewTicket}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
+            <TextBox x:Name="SearchBar" VerticalAlignment="Center" Style="{StaticResource TextBoxStyle}"/>
+            <TextBlock x:Name="SearchIcon" VerticalAlignment="Center" Style="{StaticResource ButtonTextStyle}" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{StaticResource MainColor}" FontWeight="SemiBold" Text="&#xE721;"/>
+        </StackPanel>
+        <DataGrid Grid.Row="2" ItemsSource="{Binding TicketList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  Style="{StaticResource DatagridStyle}" 
+                  RowStyle="{StaticResource DatagridRowStyle}" 
+                  CellStyle="{StaticResource DatagridCellStyle}" 
+                  ColumnHeaderStyle="{StaticResource DatagridHeaderStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ticket Id" Binding="{Binding TicketId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" />
+                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Description" Binding="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Date Created" Binding="{Binding CreatedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat='{}{0:MM/dd/yyyy}'}" Width="*" />
+                <DataGridTextColumn Header="Priority" Binding="{Binding Priority, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTemplateColumn Header="Actions" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="Delete" Style="{StaticResource DeleteButtonStyle}" Command="{Binding}" Margin="2"/>
+                                <Button x:Name="Edit" Style="{StaticResource EditButtonStyle}" Command="{Binding}" Margin="2"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

@@ -15,6 +15,5 @@ namespace Customer_Support_Ticketing_System_DTO
         public DateTime CreatedDate { get; set; }       // Date when the ticket was created
         public TicketStatus Status { get; set; }        // Enum for the ticket's status (e.g., Open, In Progress, Closed)
         public TicketPriority Priority { get; set; }    // Enum for the priority (e.g., Low, Medium, High)
-        public int? AssignedAgentId { get; set; }
     }
 }
