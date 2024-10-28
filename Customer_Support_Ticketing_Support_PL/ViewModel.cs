@@ -4,7 +4,9 @@ using Customer_Support_Ticketing_System_PL.Commands;
 using Customer_Support_Ticketing_System_PL.HelperClasses;
 using Customer_Support_Ticketing_System_PL.Modal;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Data;
 
 namespace Customer_Support_Ticketing_System_PL
 {
@@ -14,6 +16,7 @@ namespace Customer_Support_Ticketing_System_PL
         private ObservableCollection<Ticket> _ticketList;
         private CustomerSupportBLL _customerSupportBLL;
         private Ticket _currentSelectedTicket;
+        private string _searchTerm;
         #endregion
 
         #region commands
@@ -24,11 +27,14 @@ namespace Customer_Support_Ticketing_System_PL
         #endregion
         public ObservableCollection<Ticket> TicketList { get { return _ticketList; } set { if (_ticketList != value) { _ticketList = value; OnPropertyChanged(nameof(TicketList)); } } }
         public Ticket CurrentSelectedTicket { get { return _currentSelectedTicket; } set { if (_currentSelectedTicket != value) { _currentSelectedTicket = value; OnPropertyChanged(nameof(CurrentSelectedTicket)); } } }
-
+        public string SearchTerm { get { return _searchTerm; } set { if(_searchTerm!=value) { _searchTerm = value; OnPropertyChanged(nameof(SearchTerm)); ApplyFilter(); } } }
+       public ICollectionView FilteredTicketList { get;}
         public ViewModel(CustomerSupportBLL customerSupportBLL)
         {
             _customerSupportBLL = customerSupportBLL;
             TicketList = new ObservableCollection<Ticket>();
+            FilteredTicketList = CollectionViewSource.GetDefaultView(TicketList);
+            FilteredTicketList.Filter = FilterTickets;
             AddTicket = new Command(AddNewTicket, CanAddNewTicket);
             DeleteTicket = new Command(DeleteSelectedTicket, CanDeleteTicket);
             EditTicket = new Command(EditSelectedTicket, CanEditTicket);
@@ -136,5 +142,20 @@ namespace Customer_Support_Ticketing_System_PL
             if (!loadCustomers)
                 MessageBox.Show("Failed to load customer data");
         }
+        private bool FilterTickets(object obj)
+        {
+            if (obj is not Ticket ticket) return false;
+            return string.IsNullOrEmpty(SearchTerm)
+                   || ticket.Title.Contains(SearchTerm, StringComparison.InvariantCultureIgnoreCase)
+                   || ticket.Customer.Name.Contains(SearchTerm, StringComparison.InvariantCultureIgnoreCase)
+                   || ticket.Description.Contains(SearchTerm, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private void ApplyFilter()
+        {
+            FilteredTicketList.Refresh();
+        }
+
+
     }
 }

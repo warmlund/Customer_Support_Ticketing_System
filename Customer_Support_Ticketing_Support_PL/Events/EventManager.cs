@@ -91,7 +91,7 @@ namespace Customer_Support_Ticketing_System_PL.Events
 
         public static readonly DependencyProperty EnableTextInputChangedProperty =
             DependencyProperty.RegisterAttached(
-                "EnableTextInputChanged",   // Corrected the name to match the method name.
+                "EnableTextInputChanged", 
                 typeof(bool),
                 typeof(EventManager),
                 new PropertyMetadata(false, OnEnableTextInputChanged));
@@ -100,22 +100,8 @@ namespace Customer_Support_Ticketing_System_PL.Events
         {
             if (d is TextBox textBox)
             {
-                // Detach any previous event handler to avoid duplicate subscriptions
-                textBox.PreviewTextInput -= TextBox_PreviewTextInput;
-
-                // If the property is set to true, attach the event handler
-                if ((bool)e.NewValue)
-                {
-                    textBox.PreviewTextInput += TextBox_PreviewTextInput;
-                }
-            }
-        }
-
-        private static void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (sender is TextBox textBox && textBox.DataContext is AddOrEditTicketViewModel ticketViewModel)
-            {
-                ticketViewModel.AddTicket.RaiseCanExecuteChanged();
+               
+               
             }
         }
         #endregion
