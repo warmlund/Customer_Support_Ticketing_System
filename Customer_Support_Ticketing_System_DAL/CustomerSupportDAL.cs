@@ -6,30 +6,39 @@ namespace Customer_Support_Ticketing_System_DAL
     public class CustomerSupportDAL : ICustomerSupportDAL
     {
         private const string ticketStoragePath = "Sample_Data/ticket_data.json";
-        private const string customerStoragePath = "Sample_Data/customer_data.json";
+        private const string customerStoragePath = "C:\\Users\\EMWA\\source\\repos\\warmlund\\Customer_Support_Ticketing_System\\Customer_Support_Ticketing_System_DAL\\Sample_Data\\customer_data.json";
 
         public bool SaveTickets(List<Ticket> tickets)
         {
-            try
-            {
-                string jsonTickets = JsonConvert.SerializeObject(tickets, Formatting.Indented); //converts to json 
-                File.WriteAllText(ticketStoragePath, jsonTickets); //write to file
-                return true;
-            }
+                if (File.Exists(ticketStoragePath)) //Checks if file exists
+                {
+                    string jsonTickets = JsonConvert.SerializeObject(tickets, Formatting.Indented); //converts to json 
+                    File.WriteAllText(ticketStoragePath, jsonTickets); //write to file
+                    return true;
+                }
 
-            catch
-            {
-                return false;
-            }
+                else
+                {
+                    return false;
+                }
+            
         }
 
         public bool SaveCustomers(List<Customer> customers)
         {
             try
             {
-                string jsonCustomers = JsonConvert.SerializeObject(customers, Formatting.Indented); //converts to json 
-                File.WriteAllText(customerStoragePath, jsonCustomers); //write to file
-                return true;
+                if (File.Exists(customerStoragePath)) //Checks if file exists
+                {
+                    string jsonCustomers = JsonConvert.SerializeObject(customers, Formatting.Indented); //converts to json 
+                    File.WriteAllText(customerStoragePath, jsonCustomers); //write to file
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
             }
 
             catch

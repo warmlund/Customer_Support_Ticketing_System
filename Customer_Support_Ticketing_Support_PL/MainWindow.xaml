@@ -43,7 +43,7 @@
             <TextBox x:Name="SearchBar" VerticalAlignment="Center" Style="{StaticResource TextBoxStyle}"/>
             <TextBlock x:Name="SearchIcon" VerticalAlignment="Center" Style="{StaticResource ButtonTextStyle}" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{StaticResource MainColor}" FontWeight="SemiBold" Text="&#xE721;"/>
         </StackPanel>
-        <DataGrid Grid.Row="2" ItemsSource="{Binding TicketList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TicketList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource DatagridStyle}" 
                   RowStyle="{StaticResource DatagridRowStyle}" 
                   CellStyle="{StaticResource DatagridCellStyle}" 

@@ -47,33 +47,33 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10">
             <TextBlock Text="Title" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
-            <TextBox x:Name="Title" Style="{StaticResource TextBoxStyle}" Text="{Binding CurrentTicket.Title}" Height="20" Width="300" Margin="5"/>
+            <TextBox x:Name="Title" Style="{StaticResource TextBoxStyle}" Text="{Binding TicketTitle, Mode=TwoWay}" Height="20" Width="300" Margin="5" event:EventManager.EnableTextInputChanged="True"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="10">
             <TextBlock Text="Customer Name" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                <ComboBox x:Name="Customer"  ItemsSource="{Binding Customers}" DisplayMemberPath="Name" Height="20" Width="300" Margin="5"/>
+                <ComboBox x:Name="Customer"  ItemsSource="{Binding Customers}" SelectedItem="{Binding CurrentTicket.Customer, Mode=TwoWay}" DisplayMemberPath="Name" Height="20" Width="300" Margin="5"/>
                 <Button x:Name="AddCustomer" Style="{StaticResource AddButtonStyle}" Command="{Binding AddCustomer}"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
             <StackPanel Orientation="Vertical" Margin="10">
                 <TextBlock Text="Status" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
-                <ComboBox x:Name="Status" Height="20" ItemsSource="{Binding TicketStatuses}" HorizontalAlignment="Left" Margin="5" Width="130"/>
+                <ComboBox x:Name="Status" Height="20" ItemsSource="{Binding TicketStatuses}" SelectedItem="{Binding CurrentTicket.Status, Mode=TwoWay}" HorizontalAlignment="Left" Margin="5" Width="130"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="10">
                 <TextBlock Text="Priority" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
-                <ComboBox x:Name="Priority" Height="20"  ItemsSource="{Binding TicketPriorities}" HorizontalAlignment="Left" Margin="5" Width="130"/>
+                <ComboBox x:Name="Priority" Height="20"  ItemsSource="{Binding TicketPriorities}" SelectedItem="{Binding CurrentTicket.Priority, Mode=TwoWay}" HorizontalAlignment="Left" Margin="5" Width="130"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" Margin="10">
             <TextBlock Text="Description" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
-        <TextBox x:Name="Description" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding CurrentTicket.Description}" AcceptsReturn="True" Height="150" Width="300" Margin="5" HorizontalAlignment="Left"/>
+            <TextBox x:Name="Description" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding TicketDescription, Mode=TwoWay}" TextAlignment="Left" VerticalContentAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap" Height="150" Width="300" Margin="5" HorizontalAlignment="Left"  event:EventManager.EnableTextInputChanged="True"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" Margin="10" Visibility="{Binding IsAddigCustomer, Converter={StaticResource BoolConverter}}">
             <TextBlock Text="New Customer Name" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="CustomerName" Style="{StaticResource TextBoxStyle}" Text="{Binding CustomerName}" Height="20" Width="300" Margin="5" Visibility="{Binding IsAddigCustomer, Mode=TwoWay, Converter={StaticResource BoolConverter}}"/>
+                <TextBox x:Name="CustomerName" Style="{StaticResource TextBoxStyle}" Text="{Binding CustomerName}" Height="20" Width="300" Margin="5" Visibility="{Binding IsAddigCustomer, Mode=TwoWay, Converter={StaticResource BoolConverter}}" />
                 <Button x:Name="FinishAddCustomer" Style="{StaticResource FinishButtonStyle}" Command="{Binding FinishAddCustomer}" Margin="0,0,5,0" Visibility="{Binding IsAddigCustomer, Mode=TwoWay, Converter={StaticResource BoolConverter}}"/>
                 <Button x:Name="CancelAddCustomer" Style="{StaticResource CancelButtonStyle}" Command="{Binding CancelAddCustomer}" Visibility="{Binding IsAddigCustomer, Mode=TwoWay, Converter={StaticResource BoolConverter}}"/>
             </StackPanel>

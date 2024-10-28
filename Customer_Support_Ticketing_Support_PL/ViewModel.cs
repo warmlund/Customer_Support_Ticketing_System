@@ -36,6 +36,7 @@ namespace Customer_Support_Ticketing_System_PL
 
         public void UpdateCollection()
         {
+            TicketList.Clear();
             foreach (var ticket in _customerSupportBLL.TStorage.GetAllTickets())
             {
                 TicketList.Add(ticket);
@@ -46,7 +47,7 @@ namespace Customer_Support_Ticketing_System_PL
 
         private void EditSelectedTicket()
         {
-            var addTicketViewModel = new AddOrEditTicketViewModel(_customerSupportBLL, true, CurrentSelectedTicket);
+            var addTicketViewModel = new AddOrEditTicketViewModel(_customerSupportBLL, CurrentSelectedTicket);
 
             var addTicketView = new AddOrEditTicketView { DataContext = addTicketViewModel };
 
@@ -57,8 +58,8 @@ namespace Customer_Support_Ticketing_System_PL
                 try
                 {
                     _customerSupportBLL.EditTicket(addTicketViewModel.CurrentTicket, CurrentSelectedTicket.TicketId);
-                    if (addTicketViewModel.CurrentCustomer.Name != string.Empty)
-                        _customerSupportBLL.AddNewCustomer(addTicketViewModel.CurrentCustomer);
+                    if (addTicketViewModel.CurrentAddedCustomer.Name != string.Empty)
+                        _customerSupportBLL.AddNewCustomer(addTicketViewModel.CurrentAddedCustomer);
                 }
 
                 catch
@@ -75,6 +76,7 @@ namespace Customer_Support_Ticketing_System_PL
             try
             {
                 _customerSupportBLL.RemoveTicket(CurrentSelectedTicket);
+                UpdateCollection();
             }
 
             catch
@@ -88,7 +90,7 @@ namespace Customer_Support_Ticketing_System_PL
 
         private void AddNewTicket()
         {
-            var addTicketViewModel = new AddOrEditTicketViewModel(_customerSupportBLL, false);
+            var addTicketViewModel = new AddOrEditTicketViewModel(_customerSupportBLL);
 
             var addTicketView = new AddOrEditTicketView { DataContext = addTicketViewModel };
 
@@ -99,8 +101,10 @@ namespace Customer_Support_Ticketing_System_PL
                 try
                 {
                     _customerSupportBLL.AddNewTicket(addTicketViewModel.CurrentTicket);
-                    if (addTicketViewModel.CurrentCustomer.Name != string.Empty)
-                        _customerSupportBLL.AddNewCustomer(addTicketViewModel.CurrentCustomer);
+                    if (addTicketViewModel.CurrentAddedCustomer.Name != string.Empty)
+                        _customerSupportBLL.AddNewCustomer(addTicketViewModel.CurrentAddedCustomer);
+
+                    UpdateCollection();
                 }
 
                 catch

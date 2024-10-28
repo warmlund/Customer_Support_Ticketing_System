@@ -24,5 +24,6 @@ namespace Customer_Support_Ticketing_System_DTO
 
         [JsonProperty("Priority")]
         public TicketPriority Priority { get; set; }
+
     }
 }
