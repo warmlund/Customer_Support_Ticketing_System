@@ -27,8 +27,8 @@ namespace Customer_Support_Ticketing_System_PL
         #endregion
         public ObservableCollection<Ticket> TicketList { get { return _ticketList; } set { if (_ticketList != value) { _ticketList = value; OnPropertyChanged(nameof(TicketList)); } } }
         public Ticket CurrentSelectedTicket { get { return _currentSelectedTicket; } set { if (_currentSelectedTicket != value) { _currentSelectedTicket = value; OnPropertyChanged(nameof(CurrentSelectedTicket)); } } }
-        public string SearchTerm { get { return _searchTerm; } set { if(_searchTerm!=value) { _searchTerm = value; OnPropertyChanged(nameof(SearchTerm)); ApplyFilter(); } } }
-       public ICollectionView FilteredTicketList { get;}
+        public string SearchTerm { get { return _searchTerm; } set { if (_searchTerm != value) { _searchTerm = value; OnPropertyChanged(nameof(SearchTerm)); ApplyFilter(); } } }
+        public ICollectionView FilteredTicketList { get; }
         public ViewModel(CustomerSupportBLL customerSupportBLL)
         {
             _customerSupportBLL = customerSupportBLL;

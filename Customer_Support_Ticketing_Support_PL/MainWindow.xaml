@@ -48,7 +48,7 @@
                   RowStyle="{StaticResource DatagridRowStyle}" 
                   CellStyle="{StaticResource DatagridCellStyle}" 
                   ColumnHeaderStyle="{StaticResource DatagridHeaderStyle}"
-                  SelectedItem="{Binding CurrentSelectedTicket}">
+                  SelectedItem="{Binding CurrentSelectedTicket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ticket Id" Binding="{Binding TicketId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" />
                 <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
