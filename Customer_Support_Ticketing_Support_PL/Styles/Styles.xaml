@@ -47,7 +47,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MainColor}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
@@ -80,7 +80,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource DeleteColor}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
@@ -113,7 +113,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource EditColor}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
@@ -146,7 +146,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MainColor}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
@@ -179,7 +179,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MainColor}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
@@ -212,7 +212,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource DeleteColor}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>

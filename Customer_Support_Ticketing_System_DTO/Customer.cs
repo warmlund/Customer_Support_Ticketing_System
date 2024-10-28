@@ -7,7 +7,7 @@ namespace Customer_Support_Ticketing_System_DTO
         [JsonProperty("CustomerId")]
         public int CustomerId { get; set; }  // Unique identifier for the customer
 
-        [JsonProperty("CustomerName")]
+        [JsonProperty("Customer")]
         public string Name { get; set; } // Customer's first name
 
         public Customer()

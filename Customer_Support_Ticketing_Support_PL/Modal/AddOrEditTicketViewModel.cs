@@ -2,35 +2,36 @@
 using Customer_Support_Ticketing_System_DTO;
 using Customer_Support_Ticketing_System_PL.Commands;
 using Customer_Support_Ticketing_System_PL.HelperClasses;
-using System.Reflection;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Customer_Support_Ticketing_System_PL.Modal
 {
     internal class AddOrEditTicketViewModel : NotifyPropertyChanged
     {
         private bool _dialogResult;
-        private bool _isediting;
         private bool _isAddingCustomer;
-        private string _title;
         private string _customerName;
+        private string _ticketTitle;
+        private string _ticketDescription;
         private CancellationTokenSource _tokenSource;
         private Ticket _currentTicket;
-        private Customer _customer;
+        private Customer _addinCustomer;
         private List<TicketPriority> _priority;
         private List<TicketStatus> _status;
-        private List<Customer> _customers;
+        private ObservableCollection<Customer> _customers;
         private CustomerSupportBLL _customerSupportBLL;
 
         public bool DialogResult { get { return _dialogResult; } set { if (_dialogResult != value) { _dialogResult = value; OnPropertyChanged(nameof(DialogResult)); } } }
-        public bool IsEditing { get { return _isediting; } set { if (_isediting != value) { _isediting = value; OnPropertyChanged(nameof(IsEditing)); } } }
         public bool IsAddigCustomer { get { return _isAddingCustomer; } set { if (_isAddingCustomer != value) { _isAddingCustomer = value; OnPropertyChanged(nameof(IsAddigCustomer)); } } }
-        public Ticket CurrentTicket { get { return _currentTicket; } set { if (_currentTicket != value) { _currentTicket = value; OnPropertyChanged(nameof(CurrentTicket)); } } }
-        public List<TicketPriority> TicketPriorities { get { return _priority; } set { if (_priority != value) { _priority = value; OnPropertyChanged(nameof(TicketPriorities)); AddTicket.RaiseCanExecuteChanged(); } } }
-        public List<TicketStatus> TicketStatuses { get { return _status; } set { if (_status != value) { _status = value; OnPropertyChanged(nameof(TicketStatuses)); AddTicket.RaiseCanExecuteChanged(); } } }
-        public List<Customer> Customers { get { return _customers; } set { if (_customers != value) { _customers = value; OnPropertyChanged(nameof(Customers)); AddTicket.RaiseCanExecuteChanged(); } } }
-        public Customer CurrentCustomer { get { return _customer; } set { if (_customer != value) { _customer = value; OnPropertyChanged(nameof(CurrentCustomer));} } }
-        public string CustomerName{get { return _customerName; }set { if (_customerName != value) { _customerName = value; OnPropertyChanged(nameof(CustomerName)); FinishAddCustomer.RaiseCanExecuteChanged(); } } }
-        public string Title { get { return _title; } set { if (_title != value) { _title = value; OnPropertyChanged(nameof(Title)); AddTicket.RaiseCanExecuteChanged(); } } }
+        public Ticket CurrentTicket { get { return _currentTicket; } set { if (_currentTicket != value) { _currentTicket = value; OnPropertyChanged(nameof(CurrentTicket)); AddTicket.RaiseCanExecuteChanged();  } } }
+        public List<TicketPriority> TicketPriorities { get { return _priority; } set { if (_priority != value) { _priority = value; OnPropertyChanged(nameof(TicketPriorities));} } }
+        public List<TicketStatus> TicketStatuses { get { return _status; } set { if (_status != value) { _status = value; OnPropertyChanged(nameof(TicketStatuses));} } }
+        public ObservableCollection<Customer> Customers { get { return _customers; } set { if (_customers != value) { _customers = value; OnPropertyChanged(nameof(Customers)); } } }
+        public Customer CurrentAddedCustomer { get { return _addinCustomer; } set { if (_addinCustomer != value) { _addinCustomer = value; OnPropertyChanged(nameof(CurrentAddedCustomer)); } } }
+        public string CustomerName { get { return _customerName; } set { if (_customerName != value) { _customerName = value; OnPropertyChanged(nameof(CustomerName)); FinishAddCustomer.RaiseCanExecuteChanged(); } } }
+        public string TicketTitle { get { return _ticketTitle; } set { if (_ticketTitle != value) { _ticketTitle = value; OnPropertyChanged(nameof(TicketTitle)); AddTicket.RaiseCanExecuteChanged(); } } }
+        public string TicketDescription { get { return _ticketDescription; } set { if (_ticketDescription != value) { _ticketDescription = value; OnPropertyChanged(nameof(TicketDescription)); AddTicket.RaiseCanExecuteChanged(); } } }
         public Action Close { get; set; }
         public Command AddTicket { get; private set; }
         public Command CancelTicket { get; private set; }
@@ -38,21 +39,9 @@ namespace Customer_Support_Ticketing_System_PL.Modal
         public Command FinishAddCustomer { get; private set; }
         public Command CancelAddCustomer { get; private set; }
 
-        public AddOrEditTicketViewModel(CustomerSupportBLL customerSupportBLL, bool isEditing, Ticket ticket = null)
+        public AddOrEditTicketViewModel(CustomerSupportBLL customerSupportBLL, Ticket ticket = null)
         {
             _customerSupportBLL = customerSupportBLL;
-
-            if (isEditing)
-            {
-                CurrentTicket = ticket;
-                IsEditing = true;
-            }
-
-            else
-            {
-                CurrentTicket = new Ticket();
-            }
-
             AddTicket = new Command(AddNewOrUpdateTicket, CanAddOrUpdateTicket);
             CancelTicket = new Command(CancelAddOrUpdateTicket, CanCancelAddOrUpdateTicket);
             AddCustomer = new AsyncCommand(AddNewCustomerAsync, CanAddNewCustomer);
@@ -60,38 +49,80 @@ namespace Customer_Support_Ticketing_System_PL.Modal
             CancelAddCustomer = new Command(CancelAddNewCustomer, CanCancelAddNewCustomer);
             TicketPriorities = TicketPriority.GetValues(typeof(TicketPriority)).Cast<TicketPriority>().ToList();
             TicketStatuses = TicketStatus.GetValues(typeof(TicketStatus)).Cast<TicketStatus>().ToList();
+            Customers = new ObservableCollection<Customer>();
             IsAddigCustomer = false;
-            CurrentCustomer=new Customer();
-            CustomerName=string.Empty;
+            CurrentAddedCustomer = new Customer();
+            CustomerName = string.Empty;
+            LoadCustomers();
+
+            if (ticket != null)
+            {
+                CurrentTicket = ticket;
+                TicketTitle=ticket.Title;
+                TicketDescription = ticket.Description;
+                CurrentTicket.Customer = Customers.Where(c => c.Name.Equals(ticket.Customer.Name)).FirstOrDefault();
+            }
+
+            else
+            {
+                CurrentTicket = new Ticket();
+                TicketTitle = string.Empty;
+                TicketDescription = string.Empty;
+                CurrentTicket.Customer = Customers[0];
+            }
+        }
+
+        private void LoadCustomers()
+        {
+            Customers.Clear();
+            foreach (Customer customer in _customerSupportBLL.CStorage.GetAllCustomers())
+            {
+                Customers.Add(customer);
+            }
         }
 
         private bool CanCancelAddNewCustomer() => true;
         private void CancelAddNewCustomer()
         {
             IsAddigCustomer = false;
-            CurrentCustomer.Name= string.Empty;
-            CurrentCustomer.CustomerId = 0;
+            CurrentAddedCustomer.Name = string.Empty;
+            CurrentAddedCustomer.CustomerId = 0;
             CustomerName = string.Empty;
         }
 
         private bool CanFinishAddNewCustomer()
         {
-            if(IsAddigCustomer == true)
+            if (IsAddigCustomer == true)
             {
-                if (CustomerName!=string.Empty)
+                if (CustomerName != string.Empty)
                     return true;
                 else
                     return false;
             }
-           
+
             return false;
         }
 
         private void FinishAddNewCustomer()
         {
-            IsAddigCustomer = false;
-            CurrentCustomer.Name=CustomerName;
-            CurrentTicket.Customer = CurrentCustomer;
+
+            if (_customerSupportBLL.DoesCustomerExist(CustomerName))
+            {
+                MessageBox.Show("Customer already exists");
+                IsAddigCustomer = true;
+            }
+
+            else
+            {
+                IsAddigCustomer = false;
+                CurrentAddedCustomer.Name = CustomerName;
+                CustomerName = string.Empty;
+                _customerSupportBLL.AddNewCustomer(CurrentAddedCustomer);
+                LoadCustomers();
+                CurrentTicket.Customer = Customers.Where(c => c.Name.Equals(CurrentAddedCustomer.Name)).FirstOrDefault();
+                CurrentAddedCustomer = new Customer();
+            }
+
         }
 
         private bool CanAddNewCustomer() => true;
@@ -111,7 +142,7 @@ namespace Customer_Support_Ticketing_System_PL.Modal
 
                 await Task.Delay(100, _tokenSource.Token);
             }
-          
+
         }
 
         private bool CanCancelAddOrUpdateTicket() => true;
@@ -123,14 +154,18 @@ namespace Customer_Support_Ticketing_System_PL.Modal
 
         private bool CanAddOrUpdateTicket()
         {
-            PropertyInfo[] propertyInfos = _currentTicket.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            return propertyInfos.All(prop => prop.GetValue(_currentTicket) != null);
+           if(TicketTitle!=string.Empty && TicketDescription!=string.Empty) 
+                return true;
+           return false;
         }
 
         private void AddNewOrUpdateTicket()
         {
+            CurrentTicket.Title = TicketTitle;
+            CurrentTicket.Description = TicketDescription;
             DialogResult = true;
             Close?.Invoke();
         }
+
     }
 }
