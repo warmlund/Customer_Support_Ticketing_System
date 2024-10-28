@@ -93,23 +93,12 @@ namespace Customer_Support_Ticketing_System_BLL
 
         private int CreateCustomerId()
         {
-            int id = 101;
-            bool isUnique = true;
-            List<int> ids = _customerStorage.GetAllCustomers().Select(m => m.CustomerId).Distinct().ToList();
+            int id = 1;
+            List<int> ids = _customerStorage.GetAllCustomers().Select(m => m.CustomerId).ToList();
 
-            while (!isUnique)
+            while (ids.Contains(id))
             {
-                if (ids.Contains(id))
-                {
-                    isUnique = false;
-                    id++;
-                }
-
-                else
-                {
-                    isUnique = true;
-                    break;
-                }
+                id++;  // Increment ID until we find a unique one
             }
 
             return id;
@@ -118,22 +107,11 @@ namespace Customer_Support_Ticketing_System_BLL
         private int CreateTicketId()
         {
             int id = 101;
-            bool isUnique = true;
-            List<int> ids = _ticketStorage.GetAllTickets().Select(m => m.TicketId).Distinct().ToList();
+            List<int> ids = _ticketStorage.GetAllTickets().Select(m => m.TicketId).ToList();
 
-            while (!isUnique)
+            while (ids.Contains(id))
             {
-                if(ids.Contains(id))
-                {
-                    isUnique = false;
-                    id++;
-                }
-
-                else
-                {
-                    isUnique=true;
-                    break;
-                }
+                id++;  // Increment ID until we find a unique one
             }
 
             return id;

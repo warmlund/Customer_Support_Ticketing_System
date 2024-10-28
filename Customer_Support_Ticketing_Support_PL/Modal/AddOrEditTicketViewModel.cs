@@ -3,6 +3,7 @@ using Customer_Support_Ticketing_System_DTO;
 using Customer_Support_Ticketing_System_PL.Commands;
 using Customer_Support_Ticketing_System_PL.HelperClasses;
 using System.Collections.ObjectModel;
+using System.Net.Sockets;
 using System.Windows;
 
 namespace Customer_Support_Ticketing_System_PL.Modal
@@ -60,7 +61,7 @@ namespace Customer_Support_Ticketing_System_PL.Modal
                 CurrentTicket = ticket;
                 TicketTitle=ticket.Title;
                 TicketDescription = ticket.Description;
-                CurrentTicket.Customer = Customers.Where(c => c.Name.Equals(ticket.Customer.Name)).FirstOrDefault();
+                CurrentTicket.Customer = _customerSupportBLL.CStorage.GetCustomer(ticket.Customer.Name);
             }
 
             else
@@ -116,10 +117,12 @@ namespace Customer_Support_Ticketing_System_PL.Modal
             {
                 IsAddigCustomer = false;
                 CurrentAddedCustomer.Name = CustomerName;
-                CustomerName = string.Empty;
                 _customerSupportBLL.AddNewCustomer(CurrentAddedCustomer);
                 LoadCustomers();
-                CurrentTicket.Customer = Customers.Where(c => c.Name.Equals(CurrentAddedCustomer.Name)).FirstOrDefault();
+
+                CurrentTicket.Customer = _customerSupportBLL.CStorage.GetCustomer(CustomerName);
+                OnPropertyChanged(nameof(CurrentTicket));   
+                CustomerName = string.Empty;
                 CurrentAddedCustomer = new Customer();
             }
 
