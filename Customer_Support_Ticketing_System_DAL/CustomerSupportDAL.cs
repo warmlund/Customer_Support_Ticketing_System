@@ -5,42 +5,46 @@ namespace Customer_Support_Ticketing_System_DAL
 {
     public class CustomerSupportDAL : ICustomerSupportDAL
     {
-        private const string ticketStoragePath = "Sample_Data/ticket_data.json";
-        private const string customerStoragePath = "C:\\Users\\EMWA\\source\\repos\\warmlund\\Customer_Support_Ticketing_System\\Customer_Support_Ticketing_System_DAL\\Sample_Data\\customer_data.json";
+        private static readonly string projectRoot = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+        private static readonly string ticketStoragePath = Path.Combine(projectRoot, "Sample_Data", "ticket_data.json");
+        private static readonly string customerStoragePath = Path.Combine(projectRoot, "Sample_Data", "customer_data.json");
 
         public bool SaveTickets(List<Ticket> tickets)
         {
-                if (File.Exists(ticketStoragePath)) //Checks if file exists
-                {
-                    string jsonTickets = JsonConvert.SerializeObject(tickets, Formatting.Indented); //converts to json 
-                    File.WriteAllText(ticketStoragePath, jsonTickets); //write to file
-                    return true;
-                }
+            try
+            {
+                // Ensure the directory exists
+                Directory.CreateDirectory(Path.GetDirectoryName(ticketStoragePath));
 
-                else
-                {
-                    return false;
-                }
-            
+                // Serialize tickets to JSON format
+                string jsonTickets = JsonConvert.SerializeObject(tickets, Formatting.Indented);
+
+                // Write JSON data to the file
+                File.WriteAllText(ticketStoragePath, jsonTickets);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool SaveCustomers(List<Customer> customers)
         {
             try
             {
-                if (File.Exists(customerStoragePath)) //Checks if file exists
-                {
-                    string jsonCustomers = JsonConvert.SerializeObject(customers, Formatting.Indented); //converts to json 
-                    File.WriteAllText(customerStoragePath, jsonCustomers); //write to file
-                    return true;
-                }
+                // Ensure the directory exists
+                Directory.CreateDirectory(Path.GetDirectoryName(customerStoragePath));
 
-                else
-                {
-                    return false;
-                }
+                // Serialize customers to JSON format
+                string jsonCustomers = JsonConvert.SerializeObject(customers, Formatting.Indented);
+
+                // Write JSON data to the file
+                File.WriteAllText(customerStoragePath, jsonCustomers);
+
+                return true;
             }
-
             catch
             {
                 return false;

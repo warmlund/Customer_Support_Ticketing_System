@@ -46,5 +46,10 @@ namespace Customer_Support_Customering_System_BLL
                 return true;
             return false;
         }
+
+        public Customer GetCustomer(string customerName)
+        {
+           return _list.First(n=>n.Name==customerName);
+        }
     }
 }
