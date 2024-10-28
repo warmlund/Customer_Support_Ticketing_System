@@ -47,7 +47,7 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10">
             <TextBlock Text="Title" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
-            <TextBox x:Name="Title" Style="{StaticResource TextBoxStyle}" Text="{Binding TicketTitle, Mode=TwoWay}" Height="20" Width="300" Margin="5" event:EventManager.EnableTextInputChanged="True"/>
+            <TextBox x:Name="Title" Style="{StaticResource TextBoxStyle}" Text="{Binding TicketTitle, Mode=TwoWay}" Height="20" Width="300" Margin="5"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="10">
             <TextBlock Text="Customer Name" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
@@ -68,7 +68,7 @@
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" Margin="10">
             <TextBlock Text="Description" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>
-            <TextBox x:Name="Description" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding TicketDescription, Mode=TwoWay}" TextAlignment="Left" VerticalContentAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap" Height="150" Width="300" Margin="5" HorizontalAlignment="Left"  event:EventManager.EnableTextInputChanged="True"/>
+            <TextBox x:Name="Description" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding TicketDescription, Mode=TwoWay}" TextAlignment="Left" VerticalContentAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap" Height="150" Width="300" Margin="5" HorizontalAlignment="Left"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" Margin="10" Visibility="{Binding IsAddigCustomer, Converter={StaticResource BoolConverter}}">
             <TextBlock Text="New Customer Name" Style="{StaticResource ButtonTextStyle}" FontWeight="DemiBold" HorizontalAlignment="Left"/>

@@ -34,16 +34,16 @@
             <Border x:Name="CompanyLogo" Grid.Column="0" Grid.Row="0" Background="{StaticResource MainColor}" BorderThickness="0" CornerRadius="10" Width="50" Height="50" Margin="10" HorizontalAlignment="Left">
                 <TextBlock Text="C" FontSize="32" FontWeight="demiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
             </Border>
-            <TextBlock Text="Company" FontSize="24" FontWeight="demiBold" VerticalAlignment="Center" Foreground="{StaticResource TextColor}" />
+            <TextBlock Text="Customer Support" FontSize="24" FontWeight="demiBold" VerticalAlignment="Center" Foreground="{StaticResource TextColor}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" Margin="20">
             <Button x:Name="Ticket" Content="Add New Ticket" Style="{StaticResource MenuButtonStyle}" Command="{Binding AddTicket}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
-            <TextBox x:Name="SearchBar" VerticalAlignment="Center" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="SearchBar" VerticalAlignment="Center" Style="{StaticResource TextBoxStyle}" Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock x:Name="SearchIcon" VerticalAlignment="Center" Style="{StaticResource ButtonTextStyle}" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{StaticResource MainColor}" FontWeight="SemiBold" Text="&#xE721;"/>
         </StackPanel>
-        <DataGrid Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TicketList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid Grid.Row="2" Grid.Column="0" ItemsSource="{Binding FilteredTicketList, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource DatagridStyle}" 
                   RowStyle="{StaticResource DatagridRowStyle}" 
                   CellStyle="{StaticResource DatagridCellStyle}" 
@@ -71,6 +71,5 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </Window>
