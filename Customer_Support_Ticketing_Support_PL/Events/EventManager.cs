@@ -1,11 +1,13 @@
 ﻿using Customer_Support_Ticketing_System_PL.Modal;
-using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Customer_Support_Ticketing_System_PL.Events
 {
+    /// <summary>
+    /// Class for handling events in the views using dependency properties
+    /// The properties can be used in all views and view models.
+    /// This minimizes the repetition of code for eventhandling
+    /// </summary>
     public class EventManager
     {
         #region event for closing modal windows
@@ -23,16 +25,16 @@ namespace Customer_Support_Ticketing_System_PL.Events
 
         private static void EnableCloseModalChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is Window window)
+            if (d is Window window) //Checks if the objet is a window
             {
-                window.DataContextChanged += (s, e) =>
+                window.DataContextChanged += (s, e) => //event handler for when datacontext has changed
                 {
-                    if (window.DataContext is AddOrEditTicketViewModel vm)
+                    if (window.DataContext is AddOrEditTicketViewModel vm) //Checks if the data context is the view model
                     {
-                        vm.Close = () =>
+                        vm.Close = () => //event handler for closing the window
                         {
-                            window.DialogResult = vm.DialogResult;
-                            window.Close();
+                            window.DialogResult = vm.DialogResult; //sets the window dialog result to the viewmodel dialog result
+                            window.Close(); //close the window
                         };
                     }
                 };
@@ -57,51 +59,22 @@ namespace Customer_Support_Ticketing_System_PL.Events
         {
             if (d is Window window)
             {
-                window.Closing += (s, e) =>
+                window.Closing += (s, e) => //event handle for when window is closing
                 {
-                    if (window.DataContext is ViewModel viewModel)
+                    if (window.DataContext is ViewModel viewModel) //checks if the view model is the main window's view model
                     {
-                        viewModel.SaveDataOnClosing();
+                        viewModel.SaveDataOnClosing(); //calls the method for saving data to external json file
                     }
                 };
 
-                window.Loaded += (s, e) =>
+                window.Loaded += (s, e) => //event handle for when window is loading
                 {
-                    if (window.DataContext is ViewModel viewModel)
+                    if (window.DataContext is ViewModel viewModel)//checks if the view model is the main window's view model
                     {
-                        viewModel.LoadDataOnOpening();
-                        viewModel.UpdateCollection();
+                        viewModel.LoadDataOnOpening(); //calls the method for loading data from external json file
+                        viewModel.UpdateCollection(); //updates the observablecollection in the view model with the loaded data
                     }
-
                 };
-            }
-        }
-        #endregion
-
-        #region Attached Dependency Property for TextBox Input Change Events
-        public static bool GetEnableTextInputChanged(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(EnableTextInputChangedProperty);
-        }
-
-        public static void SetEnableTextInputChanged(DependencyObject obj, bool value)
-        {
-            obj.SetValue(EnableTextInputChangedProperty, value);
-        }
-
-        public static readonly DependencyProperty EnableTextInputChangedProperty =
-            DependencyProperty.RegisterAttached(
-                "EnableTextInputChanged", 
-                typeof(bool),
-                typeof(EventManager),
-                new PropertyMetadata(false, OnEnableTextInputChanged));
-
-        private static void OnEnableTextInputChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is TextBox textBox)
-            {
-               
-               
             }
         }
         #endregion

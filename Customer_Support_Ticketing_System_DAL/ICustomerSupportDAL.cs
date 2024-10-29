@@ -2,6 +2,9 @@
 
 namespace Customer_Support_Ticketing_System_DAL
 {
+    /// <summary>
+    /// Interface for the DAL layer
+    /// </summary>
     public interface ICustomerSupportDAL
     {
         List<Ticket> LoadTickets();
