@@ -1,15 +1,6 @@
-﻿using Customer_Support_Ticketing_System_PL;
-using System.Text;
+﻿using Customer_Support_Ticketing_System_BLL;
+using Customer_Support_Ticketing_System_PL;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Customer_Support_Ticketing_System_BLL;
 
 namespace Customer_Support_Ticketing_System
 {
@@ -22,8 +13,8 @@ namespace Customer_Support_Ticketing_System
         public MainWindow()
         {
             InitializeComponent();
-            _customerSupportBLL = new CustomerSupportBLL();
-            DataContext = new ViewModel(_customerSupportBLL);
+            _customerSupportBLL = new CustomerSupportBLL(); //creates instance of the BLL layer
+            DataContext = new ViewModel(_customerSupportBLL); //Sets the datacontext as viewmodel with the bll layer as an argument
         }
     }
 }

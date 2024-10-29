@@ -25,21 +25,28 @@ namespace Customer_Support_Ticketing_System_PL
         public Command DeleteTicket { get; private set; }
         public Command EditTicket { get; private set; }
         #endregion
+
+        #region properties
         public ObservableCollection<Ticket> TicketList { get { return _ticketList; } set { if (_ticketList != value) { _ticketList = value; OnPropertyChanged(nameof(TicketList)); } } }
         public Ticket CurrentSelectedTicket { get { return _currentSelectedTicket; } set { if (_currentSelectedTicket != value) { _currentSelectedTicket = value; OnPropertyChanged(nameof(CurrentSelectedTicket)); } } }
-        public string SearchTerm { get { return _searchTerm; } set { if (_searchTerm != value) { _searchTerm = value; OnPropertyChanged(nameof(SearchTerm)); ApplyFilter(); } } }
-        public ICollectionView FilteredTicketList { get; }
+        public string SearchTerm { get { return _searchTerm; } set { if (_searchTerm != value) { _searchTerm = value; OnPropertyChanged(nameof(SearchTerm)); ApplyFilter(); } } } //Property search term bound to the textbox in the view
+        public ICollectionView FilteredTicketList { get; } //An ICollectionView for enabling filtering of the datagridview
+        #endregion
+
         public ViewModel(CustomerSupportBLL customerSupportBLL)
         {
             _customerSupportBLL = customerSupportBLL;
             TicketList = new ObservableCollection<Ticket>();
-            FilteredTicketList = CollectionViewSource.GetDefaultView(TicketList);
-            FilteredTicketList.Filter = FilterTickets;
+            FilteredTicketList = CollectionViewSource.GetDefaultView(TicketList); //Sets the observablecollection as the default view
+            FilteredTicketList.Filter = FilterTickets; //sets the filter for the Icollectionview
             AddTicket = new Command(AddNewTicket, CanAddNewTicket);
             DeleteTicket = new Command(DeleteSelectedTicket, CanDeleteTicket);
             EditTicket = new Command(EditSelectedTicket, CanEditTicket);
         }
 
+        /// <summary>
+        /// Updates the observablecollection with tickets from the storage in the bll layer
+        /// </summary>
         public void UpdateCollection()
         {
             TicketList.Clear();
@@ -51,6 +58,11 @@ namespace Customer_Support_Ticketing_System_PL
 
         private bool CanEditTicket() => true;
 
+        /// <summary>
+        /// Method that edits the selected ticket
+        /// creates instance of modal view and view model
+        /// if dialog result is true, the ticket is edited in the BLL layer
+        /// </summary>
         private void EditSelectedTicket()
         {
             var addTicketViewModel = new AddOrEditTicketViewModel(_customerSupportBLL, CurrentSelectedTicket);
@@ -77,6 +89,10 @@ namespace Customer_Support_Ticketing_System_PL
 
         private bool CanDeleteTicket() => true;
 
+        /// <summary>
+        /// Calls the method in the bll layer and removes the ticket from the storage
+        /// Updates the collection
+        /// </summary>
         private void DeleteSelectedTicket()
         {
             try
@@ -94,6 +110,11 @@ namespace Customer_Support_Ticketing_System_PL
 
         private bool CanAddNewTicket() => true;
 
+        /// <summary>
+        /// Method that adds the selected ticket
+        /// creates instance of modal view and view model
+        /// if dialog result is true, the ticket is add to the storage in the BLL layer 
+        /// </summary>
         private void AddNewTicket()
         {
             var addTicketViewModel = new AddOrEditTicketViewModel(_customerSupportBLL);
@@ -120,6 +141,10 @@ namespace Customer_Support_Ticketing_System_PL
             }
         }
 
+        /// <summary>
+        /// Method that saves tickets and customers to external data
+        /// These methods are called from the dependency property in the eventhandler
+        /// </summary>
         public void SaveDataOnClosing()
         {
             bool saveTickets = _customerSupportBLL.SaveTicketsToData();
@@ -131,6 +156,10 @@ namespace Customer_Support_Ticketing_System_PL
                 MessageBox.Show("Failed to save customer data");
         }
 
+        /// <summary>
+        /// Method that loads tickets and customers to external data
+        /// These methods are called from the dependency property in the eventhandler
+        /// </summary>
         public void LoadDataOnOpening()
         {
             bool loadTickets = _customerSupportBLL.LoadTicketsFromData();
@@ -142,6 +171,12 @@ namespace Customer_Support_Ticketing_System_PL
             if (!loadCustomers)
                 MessageBox.Show("Failed to load customer data");
         }
+
+        /// <summary>
+        /// A method that filters the datagridview based on title, customer name or description
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         private bool FilterTickets(object obj)
         {
             if (obj is not Ticket ticket) return false;
@@ -151,6 +186,9 @@ namespace Customer_Support_Ticketing_System_PL
                    || ticket.Description.Contains(SearchTerm, StringComparison.InvariantCultureIgnoreCase);
         }
 
+        /// <summary>
+        /// A method that refreshes the filter every time the search term is changed
+        /// </summary>
         private void ApplyFilter()
         {
             FilteredTicketList.Refresh();
