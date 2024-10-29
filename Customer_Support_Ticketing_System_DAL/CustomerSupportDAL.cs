@@ -5,6 +5,7 @@ namespace Customer_Support_Ticketing_System_DAL
 {
     public class CustomerSupportDAL : ICustomerSupportDAL
     {
+        //strings for paths to the sample json files.
         private static readonly string projectRoot = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.FullName;
         private static readonly string ticketStoragePath = Path.Combine(projectRoot, "Sample_Data", "ticket_data.json");
         private static readonly string customerStoragePath = Path.Combine(projectRoot, "Sample_Data", "customer_data.json");

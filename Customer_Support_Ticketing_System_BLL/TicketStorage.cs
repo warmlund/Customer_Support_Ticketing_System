@@ -2,9 +2,17 @@
 
 namespace Customer_Support_Ticketing_System_BLL
 {
+    /// <summary>
+    /// Class storing tickets. Inherits listmanager
+    /// </summary>
     public class TicketStorage : ListManager<Ticket>
     {
         public TicketStorage() : base() { }
+
+        /// <summary>
+        /// A method that returns all tickets as a string array
+        /// </summary>
+        /// <returns></returns>
         public override string[] ToStringArray()
         {
             var TicketArray = new string[_list.Count];
@@ -16,6 +24,11 @@ namespace Customer_Support_Ticketing_System_BLL
             return TicketArray;
         }
 
+
+        /// <summary>
+        /// Returns all ticket ids as a list
+        /// </summary>
+        /// <returns></returns>
         public List<int> GetIds()
         {
             var list = new List<int>();
@@ -28,6 +41,10 @@ namespace Customer_Support_Ticketing_System_BLL
             return list;
         }
 
+        /// <summary>
+        /// Returns all tickets as list
+        /// </summary>
+        /// <returns></returns>
         public List<Ticket> GetAllTickets()
         {
             var list = new List<Ticket>();
