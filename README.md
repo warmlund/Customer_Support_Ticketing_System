@@ -21,7 +21,6 @@ The project in WPF usan an MVVM pattern in an three layered architecture.
 
 Emelie Wärmlund - @emeliewarmlund@gmail.com
 <br>
-Project Link: [https://github.com/warmlund/Introduction_to_C_Sharp_III](https://github.com/warmlund/Customer_Support_Ticketing_System)
 <br>
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
