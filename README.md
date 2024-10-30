@@ -10,8 +10,6 @@ The user can search, add, remove and edit tickets aswell as add customers. The c
 
 The project in WPF usan an MVVM pattern in an three layered architecture.
 
-### Assignments
-
 ### Built With
 
 ![GitHub top language](https://img.shields.io/github/languages/top/warmlund/Customer_Support_Ticketing_System)
