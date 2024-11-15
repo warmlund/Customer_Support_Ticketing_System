@@ -84,7 +84,5 @@ namespace Customer_Support_Ticketing_System_PL.Commands
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
-
-
     }
 }
