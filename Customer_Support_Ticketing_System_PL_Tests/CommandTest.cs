@@ -18,7 +18,7 @@ namespace Customer_Support_Ticketing_System_PL_Tests
         }
 
         [Test]
-        public void CommandSubscriptionTest()
+        public void CommandEventRaiseTest()
         {
             //Arrange
             bool eventRaised = false;
@@ -34,7 +34,7 @@ namespace Customer_Support_Ticketing_System_PL_Tests
         }
 
         [Test]
-        public void CommandEventRaiseTest()
+        public void CommandNoSubscriptionTest()
         {
             // Act & Assert
             //An exception will not be thrown because the method uses a null-propagating operation '?.'
@@ -42,7 +42,7 @@ namespace Customer_Support_Ticketing_System_PL_Tests
             //And no excpetion will be thrown. Therefor testing that no exception will be thrown
 
             Assert.DoesNotThrow(() => command.RaiseCanExecuteChanged(),
-                "RaiseCanExecuteChanged should not throw an exception when there are no subscribers."); 
-        } 
+                "RaiseCanExecuteChanged should not throw an exception when there are no subscribers.");
+        }
     }
 }
