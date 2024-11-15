@@ -18,5 +18,9 @@
   {
     "CustomerId": 5,
     "Customer": "Charlie Davis"
+  },
+  {
+    "CustomerId": 6,
+    "Customer": "emelie"
   }
 ]

@@ -145,7 +145,7 @@ namespace Customer_Support_Ticketing_System_BLL
         /// Creates and id for a new customer
         /// </summary>
         /// <returns></returns>
-        private int CreateCustomerId()
+        public int CreateCustomerId()
         {
             int id = 1;
             List<int> ids = _customerStorage.GetAllCustomers().Select(m => m.CustomerId).ToList();
