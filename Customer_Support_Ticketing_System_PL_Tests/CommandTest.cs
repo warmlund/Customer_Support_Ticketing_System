@@ -2,6 +2,10 @@ using Customer_Support_Ticketing_System_PL.Commands;
 
 namespace Customer_Support_Ticketing_System_PL_Tests
 {
+    /// <summary>
+    /// Unit test that tests event handling in the class Command
+    /// The class inherits ICommand. Used for binding commands from the UI to the view model.
+    /// </summary>
     public class CommandTest
     {
         private Command command;
